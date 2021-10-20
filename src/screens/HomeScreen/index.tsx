@@ -28,7 +28,7 @@ export type Photo = {
   views?: number;
   webformatHeight?: number;
   webformatURL?: string;
-  webformatWidth?: string;
+  webformatWidth?: number;
 };
 
 export type TypeResponse = {
