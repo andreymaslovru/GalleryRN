@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {baseURL} from '../../api/axios';
 import {Photo, TypeResponse} from '../../screens/HomeScreen';
 import {AppThunk} from '../types';
 
@@ -15,17 +14,21 @@ export const fetchPhotos = (photos: Photo[]) =>
     photos,
   };
 
-export const fetchhh = () => {
-  return axios.get<TypeResponse>(`${baseURL}`).then(res => {
-    return res;
-  });
-};
+export const toggleToFavorite = (id: number) =>
+  <const>{
+    type: 'TOGGLE_TO_FAVORITE',
+    id,
+  };
+
+export const removeToFavorite = (id: number) =>
+  <const>{
+    type: 'REMOVE_TO_FAVORITE',
+    id,
+  };
 
 export const getPhotos = (): AppThunk => async dispatch => {
   dispatch(photosIsLoading(true));
   try {
-    //const response = await axios.get<TypeResponse>(`${baseURL}`);
-    //https://pixabay.com/api/?key=23926523-f17af8d65895f2b1c4bb3a756&q=yellow+flowers&image_type=photo
     const response = await axios.get<TypeResponse>('https://pixabay.com/api/', {
       params: {
         key: '23926523-f17af8d65895f2b1c4bb3a756',
@@ -34,9 +37,6 @@ export const getPhotos = (): AppThunk => async dispatch => {
         per_page: 55,
       },
     });
-    console.log('====================================');
-    console.log(response);
-    console.log('====================================');
     dispatch(fetchPhotos(response.data.hits));
     dispatch(photosIsLoading(false));
   } catch (error) {

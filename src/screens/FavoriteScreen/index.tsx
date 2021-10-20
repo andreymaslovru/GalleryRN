@@ -1,17 +1,13 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {useSelector} from 'react-redux';
+import {ImagesContainer} from '../../container/ImagesContainer';
 import {Store} from '../../store/types';
 
 interface FavoriteScreeenProps {}
 
 export const FavoriteScreeen: React.FC<FavoriteScreeenProps> = () => {
-  const photosDefault = useSelector((store: Store) => store.photos);
-  console.log(photosDefault, '111');
+  const data = useSelector((store: Store) => store.photos.photos);
+  const favorites = data.filter(item => item.isFavorite === true);
 
-  return (
-    <View>
-      <Text>FAVORITE SCREEN</Text>
-    </View>
-  );
+  return <ImagesContainer data={favorites} />;
 };

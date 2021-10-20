@@ -9,7 +9,7 @@ export enum RootP {
 }
 
 export type RootStackParamList = {
-  [RootP.viewImage]: {item?: Photo};
+  [RootP.viewImage]: {item: Photo; isFavorite?: boolean};
   [RootP.app]: NavigatorScreenParams<TabsParamList>;
 };
 

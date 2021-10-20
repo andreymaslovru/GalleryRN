@@ -1,16 +1,8 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {
-  View,
-  ActivityIndicator,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootP} from '../../navigation/Router/interface';
+import {ImagesContainer} from '../../container/ImagesContainer';
 import {Store} from '../../store/types';
-import {styles} from './styles';
 
 interface HomeScreenProps {}
 
@@ -46,37 +38,13 @@ export type TypeResponse = {
 };
 
 export const HomeScreeen: React.FC<HomeScreenProps> = () => {
-  const navigation = useNavigation();
   const isLoading = useSelector((store: Store) => store.photos.isLoading);
-  const data = useSelector((store: Store) => store.photos.hits);
+  const data = useSelector((store: Store) => store.photos.photos);
   console.log(isLoading);
 
   if (isLoading) {
     return <ActivityIndicator color={'black'} />;
   }
 
-  const pressable = (item: Photo) => {
-    console.log(item.id);
-    navigation.navigate(RootP.viewImage, {item});
-  };
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        {data.map(item => {
-          return (
-            <TouchableOpacity
-              onPress={() => pressable(item)}
-              key={item.user_id + item.id}>
-              <Image
-                style={styles.containerForImage}
-                source={{
-                  uri: `${item.previewURL}`,
-                }}
-              />
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    </ScrollView>
-  );
+  return <ImagesContainer data={data} />;
 };

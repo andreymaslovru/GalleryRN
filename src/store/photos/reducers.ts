@@ -2,32 +2,7 @@ import {Reducer} from 'redux';
 import {PhotosAction, PhotosReducer} from './types';
 
 const initialState: PhotosReducer = {
-  hits: [
-    {
-      collections: 1,
-      comments: 1,
-      downloads: 1,
-      id: 1,
-      imageHeight: 1,
-      imageSize: 1,
-      imageWidth: 1,
-      largeImageURL: '',
-      likes: 1,
-      pageURL: '',
-      previewHeight: 1,
-      previewURL: '',
-      previewWidth: '',
-      tags: [''],
-      type: '',
-      user: '',
-      userImageURL: '',
-      user_id: 1,
-      views: 1,
-      webformatHeight: 1,
-      webformatURL: '',
-      webformatWidth: '',
-    },
-  ],
+  photos: [],
   isLoading: false,
 };
 
@@ -45,7 +20,33 @@ export const photos: Reducer<PhotosReducer, PhotosAction> = (
     case 'FETCH_PHOTOS':
       return {
         ...state,
-        hits: action.photos,
+        photos: action.photos.map(item => {
+          return {
+            photo: item,
+            isFavorite: false,
+          };
+        }),
+      };
+
+    case 'TOGGLE_TO_FAVORITE':
+      return {
+        ...state,
+        photos: state.photos.map(item => {
+          if (item.photo.id === action.id) {
+            return {
+              photo: item.photo,
+              isFavorite: !item.isFavorite,
+            };
+          } else {
+            return item;
+          }
+        }),
+      };
+
+    case 'REMOVE_TO_FAVORITE':
+      return {
+        ...state,
+        photos: state.photos.filter(item => item.photo.id !== action.id),
       };
 
     default:
