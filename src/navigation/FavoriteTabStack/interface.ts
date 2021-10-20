@@ -1,5 +1,6 @@
-import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
+
 import {Tabs, TabsNavigationProp} from '../Tabs/interface';
 
 export enum FavoriteP {

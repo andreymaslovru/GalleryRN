@@ -1,4 +1,5 @@
 import {Reducer} from 'redux';
+
 import {PhotosAction, PhotosReducer} from './types';
 
 const initialState: PhotosReducer = {

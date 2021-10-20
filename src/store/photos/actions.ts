@@ -1,5 +1,7 @@
 import axios from 'axios';
-import {Photo, TypeResponse} from '../../screens/HomeScreen';
+
+import {axiosVariable, baseURL} from '../../api';
+import {Photo, TypeResponse} from '../../api/types';
 import {AppThunk} from '../types';
 
 export const photosIsLoading = (status: boolean) =>
@@ -26,21 +28,23 @@ export const removeToFavorite = (id: number) =>
     id,
   };
 
-export const getPhotos = (): AppThunk => async dispatch => {
-  dispatch(photosIsLoading(true));
-  try {
-    const response = await axios.get<TypeResponse>('https://pixabay.com/api/', {
-      params: {
-        key: '23926523-f17af8d65895f2b1c4bb3a756',
-        q: 'yellow+flowers',
-        image_type: 'photo',
-        per_page: 55,
-      },
-    });
-    dispatch(fetchPhotos(response.data.hits));
-    dispatch(photosIsLoading(false));
-  } catch (error) {
-    dispatch(photosIsLoading(false));
-    console.log('receiveFavorites error:', error);
-  }
-};
+export const getPhotos =
+  (per_page: number = 50): AppThunk =>
+  async dispatch => {
+    dispatch(photosIsLoading(true));
+    try {
+      const response = await axios.get<TypeResponse>(baseURL, {
+        params: {
+          key: axiosVariable.ACCESS_KEY,
+          q: axiosVariable.TYPE,
+          image_type: axiosVariable.IMAGE_TYPE,
+          per_page: per_page,
+        },
+      });
+      dispatch(fetchPhotos(response.data.hits));
+      dispatch(photosIsLoading(false));
+    } catch (error) {
+      dispatch(photosIsLoading(false));
+      console.log('receiveFavorites error:', error);
+    }
+  };

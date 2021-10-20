@@ -4,20 +4,24 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {RootP, RootStackParamList} from './interface';
 import {TabNavigator} from '../Tabs';
-import {ViewImage} from '../../screens/ViewImage';
+import {ImageWatch} from '../../screens/ViewImage';
 
 const MainStack = createStackNavigator<RootStackParamList>();
 
 export const Router: React.FC = () => {
   return (
     <NavigationContainer>
-      <MainStack.Navigator>
+      <MainStack.Navigator
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerBackTitle: ' ',
+        }}>
         <MainStack.Screen
           name={RootP.app}
           component={TabNavigator}
           options={{headerShown: false}}
         />
-        <MainStack.Screen name={RootP.viewImage} component={ViewImage} />
+        <MainStack.Screen name={RootP.viewImage} component={ImageWatch} />
       </MainStack.Navigator>
     </NavigationContainer>
   );

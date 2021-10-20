@@ -1,10 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import {Tabs} from './interface';
 import {HomeTabStack} from '../HomeTabStack';
 import {FavoriteTabStack} from '../FavoriteTabStack';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 const Tab = createBottomTabNavigator();
 

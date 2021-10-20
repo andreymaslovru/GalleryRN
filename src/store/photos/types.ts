@@ -1,4 +1,4 @@
-import {Photo} from '../../screens/HomeScreen';
+import {Photo} from '../../api/types';
 import {
   toggleToFavorite,
   fetchPhotos,

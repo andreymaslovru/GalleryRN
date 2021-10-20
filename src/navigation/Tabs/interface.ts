@@ -4,6 +4,7 @@ import {
   NavigatorScreenParams,
   RouteProp,
 } from '@react-navigation/native';
+
 import {HomeStackParamList} from '../HomeTabStack/interface';
 import {RootNavigationProp, RootP} from '../Router/interface';
 import {FavoriteStackParamList} from '../FavoriteTabStack/interface';
