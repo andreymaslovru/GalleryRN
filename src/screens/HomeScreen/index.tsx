@@ -59,6 +59,11 @@ export const HomeScreeen: React.FC<HomeScreenProps> = () => {
   //dispatch(getPhotos());
 
   const isLoading = useSelector((store: Store) => store.photos.isLoading);
+  console.log(isLoading);
+
+  if (isLoading) {
+    return <ActivityIndicator color={'black'} />;
+  }
   //console.log(photosDefault.hits, photosDefault.isLoading);
   return (
     <View>
