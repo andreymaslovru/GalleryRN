@@ -1,6 +1,6 @@
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Photo} from '../../screens/HomeScreen';
+import {photoObject} from '../../container/ImagesContainer';
 import {TabsParamList} from '../Tabs/interface';
 
 export enum RootP {
@@ -9,7 +9,7 @@ export enum RootP {
 }
 
 export type RootStackParamList = {
-  [RootP.viewImage]: {item: Photo; isFavorite?: boolean};
+  [RootP.viewImage]: {item: photoObject};
   [RootP.app]: NavigatorScreenParams<TabsParamList>;
 };
 

@@ -5,16 +5,18 @@ import {RootP} from '../../navigation/Router/interface';
 import {Photo} from '../../screens/HomeScreen';
 import {styles} from './styles';
 
+export type photoObject = {
+  photo: Photo;
+  isFavorite: boolean;
+};
+
 interface ImagesContainerProps {
-  data: {
-    photo: Photo;
-    isFavorite: boolean;
-  }[];
+  data: photoObject[];
 }
 
 export const ImagesContainer: React.FC<ImagesContainerProps> = ({data}) => {
   const navigation = useNavigation();
-  const pressable = (item: Photo) => {
+  const pressable = (item: photoObject) => {
     navigation.navigate(RootP.viewImage, {item});
   };
   return (
@@ -23,7 +25,7 @@ export const ImagesContainer: React.FC<ImagesContainerProps> = ({data}) => {
         {data.map(item => {
           return (
             <TouchableOpacity
-              onPress={() => pressable(item.photo)}
+              onPress={() => pressable(item)}
               key={item.photo.id + item.photo.previewURL}>
               <Image
                 style={styles.containerForImage}

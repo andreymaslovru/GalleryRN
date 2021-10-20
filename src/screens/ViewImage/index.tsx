@@ -15,8 +15,6 @@ export const ViewImage: React.FC<ViewImageProps> = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const item = route.params.item;
-  const isFavorite = route.params.isFavorite;
-  console.log(item.id, 'item');
 
   const addFav = (id: number) => {
     dispatch(toggleToFavorite(id));
@@ -35,19 +33,19 @@ export const ViewImage: React.FC<ViewImageProps> = ({route}) => {
       <Image
         style={styles.containerForImage}
         source={{
-          uri: `${item.largeImageURL}`,
+          uri: `${item.photo.largeImageURL}`,
         }}
       />
 
       <View style={styles.modal}>
         <TouchableOpacity
           style={styles.strAction}
-          onPress={() => addFav(item.id)}>
+          onPress={() => addFav(item.photo.id)}>
           <Text>
-            {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+            {item.isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => removeFav(item.id)}>
+        <TouchableOpacity onPress={() => removeFav(item.photo.id)}>
           <Text>Удалить изображение</Text>
         </TouchableOpacity>
       </View>
