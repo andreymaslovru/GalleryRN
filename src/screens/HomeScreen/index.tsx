@@ -1,23 +1,16 @@
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import _ from 'underscore';
+import {useNavigation} from '@react-navigation/core';
+import React from 'react';
 import {
   View,
-  Text,
-  Image,
-  ActivityIndicatorBase,
   ActivityIndicator,
+  ScrollView,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {baseURL} from '../../api/axios';
-import {PreviousImage} from '../../components/PreviousImage';
-import {
-  fetchhh,
-  fetchPhotos,
-  getPhotos,
-  photosIsLoading,
-} from '../../store/photos/actions';
+import {useSelector} from 'react-redux';
+import {RootP} from '../../navigation/Router/interface';
 import {Store} from '../../store/types';
+import {styles} from './styles';
 
 interface HomeScreenProps {}
 
@@ -53,28 +46,37 @@ export type TypeResponse = {
 };
 
 export const HomeScreeen: React.FC<HomeScreenProps> = () => {
-  //const dispatch = useDispatch();
-  //const [photos, setPhotos] = useState<Photo[] | []>([]);
-
-  //dispatch(getPhotos());
-
+  const navigation = useNavigation();
   const isLoading = useSelector((store: Store) => store.photos.isLoading);
+  const data = useSelector((store: Store) => store.photos.hits);
   console.log(isLoading);
 
   if (isLoading) {
     return <ActivityIndicator color={'black'} />;
   }
-  //console.log(photosDefault.hits, photosDefault.isLoading);
+
+  const pressable = (item: Photo) => {
+    console.log(item.id);
+    navigation.navigate(RootP.viewImage, {item});
+  };
   return (
-    <View>
-      <Text>HOME SCREEN</Text>
-      <PreviousImage />
-      <Image
-        style={{width: 100, height: 100}}
-        source={{
-          uri: 'https://cdn.pixabay.com/photo/2015/08/13/20/06/flower-887443_150.jpg',
-        }}
-      />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        {data.map(item => {
+          return (
+            <TouchableOpacity
+              onPress={() => pressable(item)}
+              key={item.user_id + item.id}>
+              <Image
+                style={styles.containerForImage}
+                source={{
+                  uri: `${item.previewURL}`,
+                }}
+              />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };

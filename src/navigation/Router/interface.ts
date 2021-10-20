@@ -1,14 +1,15 @@
 import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {Photo} from '../../screens/HomeScreen';
 import {TabsParamList} from '../Tabs/interface';
 
 export enum RootP {
-  //auth = 'Auth',
+  viewImage = 'ViewImage',
   app = 'App',
 }
 
 export type RootStackParamList = {
-  //[RootP.auth]: undefined;
+  [RootP.viewImage]: {item?: Photo};
   [RootP.app]: NavigatorScreenParams<TabsParamList>;
 };
 

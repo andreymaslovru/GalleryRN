@@ -31,6 +31,7 @@ export const getPhotos = (): AppThunk => async dispatch => {
         key: '23926523-f17af8d65895f2b1c4bb3a756',
         q: 'yellow+flowers',
         image_type: 'photo',
+        per_page: 55,
       },
     });
     console.log('====================================');
