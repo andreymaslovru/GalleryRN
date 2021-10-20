@@ -1,11 +1,27 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import _ from 'underscore';
+import {
+  View,
+  Text,
+  Image,
+  ActivityIndicatorBase,
+  ActivityIndicator,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {baseURL} from '../../api/axios';
 import {PreviousImage} from '../../components/PreviousImage';
+import {
+  fetchhh,
+  fetchPhotos,
+  getPhotos,
+  photosIsLoading,
+} from '../../store/photos/actions';
+import {Store} from '../../store/types';
 
 interface HomeScreenProps {}
 
-type Photo = {
+export type Photo = {
   collections?: number;
   comments?: number;
   downloads?: number;
@@ -30,26 +46,20 @@ type Photo = {
   webformatWidth?: string;
 };
 
-type TypeResponse = {
+export type TypeResponse = {
   hits: Photo[];
   total: number;
   totalHits: number;
 };
 
 export const HomeScreeen: React.FC<HomeScreenProps> = () => {
-  const [photos, setPhotos] = useState<Photo[] | []>([]);
-  useEffect(() => {
-    axios
-      .get<TypeResponse>(
-        'https://pixabay.com/api/?key=23926523-f17af8d65895f2b1c4bb3a756&q=yellow+flowers&image_type=photo',
-      )
-      .then(res => {
-        setPhotos(res.data.hits);
-      });
-  }, []);
+  //const dispatch = useDispatch();
+  //const [photos, setPhotos] = useState<Photo[] | []>([]);
 
-  //console.log(photos[0].previewURL);
+  //dispatch(getPhotos());
 
+  const isLoading = useSelector((store: Store) => store.photos.isLoading);
+  //console.log(photosDefault.hits, photosDefault.isLoading);
   return (
     <View>
       <Text>HOME SCREEN</Text>
